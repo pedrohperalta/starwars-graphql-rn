@@ -1,0 +1,54 @@
+{
+  "name": "StartWarsGraphql",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "clear": "rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-*",
+    "hard-reset": "watchman watch-del-all && rm -rf node_modules && yarn install",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "lint": "tslint 'src/**/*.{ts,tsx}' --config .tslint.json",
+    "lint-fix": "tslint 'src/**/*.{ts,tsx}' --config .tslint.json --fix",
+    "start": "react-native start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "16.8.6",
+    "react-native": "0.60.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/runtime": "^7.5.4",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "@types/jest": "^24.0.15",
+    "@types/react": "^16.8.23",
+    "@types/react-native": "^0.60.1",
+    "@types/react-test-renderer": "^16.8.2",
+    "babel-jest": "^24.8.0",
+    "eslint": "^6.0.1",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.55.0",
+    "react-native-typescript-transformer": "^1.2.12",
+    "react-test-renderer": "16.8.6",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(js)$": "<rootDir>/node_modules/babel-jest",
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ],
+    "cacheDirectory": ".jest/cache"
+  }
+}
