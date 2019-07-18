@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { Query } from 'react-apollo'
 import {
   ActivityIndicator,
@@ -11,8 +11,10 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
+import { NavigationScreenProps } from 'react-navigation'
 
 interface Character {
+  id: string
   name: string
   gender: string
 }
@@ -23,18 +25,23 @@ interface Data {
   allPersons: Array<Character>
 }
 
-const allPersonsQuery = gql`
+const ALL_PERSONS_QUERY = gql`
   {
     allPersons {
+      id
       name
       gender
     }
   }
 `
 
-export default class Characters extends React.PureComponent {
+export default class Characters extends PureComponent<NavigationScreenProps> {
+  public static navigationOptions = {
+    title: 'Characters',
+  }
+
   renderCharacter = ({ item }: { item: Character }) => (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={() => this.onCharacterClicked(item)}>
       <View style={styles.characterContainer}>
         <Text style={styles.characterName}>{item.name}</Text>
         <Text style={styles.characterGender}>{item.gender}</Text>
@@ -42,9 +49,13 @@ export default class Characters extends React.PureComponent {
     </TouchableWithoutFeedback>
   )
 
+  onCharacterClicked = (character: Character) => {
+    this.props.navigation.navigate('Details', { id: character.id })
+  }
+
   render() {
     return (
-      <Query<Data> query={allPersonsQuery}>
+      <Query<Data> query={ALL_PERSONS_QUERY}>
         {({ loading, error, data }) => {
           let content: JSX.Element
 
@@ -65,7 +76,7 @@ export default class Characters extends React.PureComponent {
 
           return (
             <SafeAreaView>
-              <StatusBar barStyle="dark-content" />
+              <StatusBar barStyle="light-content" />
               <View style={styles.container}>{content}</View>
             </SafeAreaView>
           )
@@ -79,6 +90,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     justifyContent: 'center',
+    backgroundColor: '#f0f0f0',
   },
   error: {
     padding: 20,
@@ -88,10 +100,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   characterContainer: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
+    backgroundColor: '#fff',
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#c3c3c3',
+    borderColor: '#e4e4e4',
     padding: 20,
     marginBottom: 20,
   },
