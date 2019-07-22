@@ -25,7 +25,7 @@ interface Data {
   allPersons: Array<Character>
 }
 
-const ALL_PERSONS_QUERY = gql`
+export const ALL_PERSONS_QUERY = gql`
   {
     allPersons {
       id
@@ -62,7 +62,11 @@ export default class Characters extends PureComponent<NavigationScreenProps> {
           if (loading) {
             content = <ActivityIndicator />
           } else if (error) {
-            content = <Text style={styles.error}>{error.message}</Text>
+            content = (
+              <Text style={styles.error}>
+                Something went wrong while fetching the data. Please, try again later.
+              </Text>
+            )
           } else {
             content = (
               <FlatList<Character>

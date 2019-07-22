@@ -1,3 +1,5 @@
+*.orig
+
 # OSX
 #
 .DS_Store
@@ -30,6 +32,10 @@ build/
 local.properties
 *.iml
 
+# Visual Studio Code
+#
+.vscode/
+
 # node.js
 #
 node_modules/
@@ -55,9 +61,14 @@ buck-out/
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
-/ios/Pods/
-
 # Jest
-#
-.jest/
+.jest
+coverage/
+
+# iOS
+/ios/Pods/
+ios/assets/
+ios/exports/
+
+# Android
+android/app/release/*
